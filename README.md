@@ -17,8 +17,14 @@ If multiple fits are given, F-test statistics are also given. I.e., a measure fo
 Download stattest.py and stattest_functions.py to the same folder. The program should be run from this folder.
 
 ### Requirements
-- python3
-- standard python packages (can, e.g., be installed with pip install): numpy, matplotlib, argparse, sys, scipy, os
+* python3
+* standard python packages (can with 'pip' or 'conda'):
+  * numpy
+  * matplotlib
+  * argparse
+  * sys
+  * scipy
+  * os
 
 ## Running the program
 
