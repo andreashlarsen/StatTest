@@ -14,7 +14,7 @@ The chi-square assumeed normal-distributed (Gaussian) errors. The runs test assu
 If multiple fits are given, F-test statistics are also given. I.e., a measure for how much better one model is compared to another. Typically used to assess if a more complex model (i.e. with more free parameters) is significantly better than a simpler model.
 
 ## Installation
-Download stattest.py and stattest_functions.py to the same folder
+Download stattest.py and stattest_functions.py to the same folder. The program should be run from this folder.
 
 ### Requirements
 - python3
