@@ -18,7 +18,7 @@ Download stattest.py and stattest_functions.py to the same folder. The program s
 
 ### Requirements
 - python3
-- standard python packages (can, e.g., be installed with pip install): numpy, matplotlib, argparse, sys, scipy
+- standard python packages (can, e.g., be installed with pip install): numpy, matplotlib, argparse, sys, scipy, os
 
 ## Running the program
 
@@ -38,18 +38,22 @@ python stattest.py <INPUT>
 python stattest.py -h
 ```
 
+## Examples
+example data and fits are provided in the examples folder    
+
 ### Example, 1 fit: 
 Data of tri-axial ellipsoids were simulated with Shape2SAS and exported (Isim_1.dat) and fitted with a tri-axial ellipsoid model (5 parameters: scale, axis a, axis b, axis c, background) in SasView. The fitfile was likewize exported (fit_ellips.txt):    
 ```
-python stattest.py -d Isim_1.dat -f fit_ellips.txt -k 5
+python stattest.py -d examples/Isim_1.dat -f examples/fit_ellips.txt -k 5
 ```
 
 ### Example, 3 alternative fits: 
 The same data were also fitted with a simpler model of polydispere spheres (4 parameters: scale, background, radius, polydispersity) and a more complex model of tri-axial ellipsoids with polydispersity in the one axis (axis a):    
 ```
-python stattest.py -d Isim_1.dat -f "fit_sph.txt fit_ellips.txt fit_ellips_poly.txt" -k "4 5 6"
+python stattest.py -path examples -d Isim_1.dat -f "fit_sph.txt fit_ellips.txt fit_ellips_poly.txt" -k "4 5 6"
 ```
 Note that multiple inputs should be surrounded by quotation marks. Moreover, the number of free parameters should match the number of fits (these can be the same).   
+The option -path gives the opportunity to provide a pathf for all fits and data, to avoid typing it multiple times.    
 
 ## Acknowledgements
 The program was written by Andreas Haahr Larsen    
