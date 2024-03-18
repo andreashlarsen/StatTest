@@ -43,14 +43,20 @@ Data of tri-axial ellipsoids were simulated with Shape2SAS and exported (Isim_1.
 python stattest.py -d Isim_1.dat -f fit_ellips.txt -k 5
 ```
 
-### Example, 1 fit: 
+### Example, 3 alternative fits: 
 The same data were also fitted with a simpler model of polydispere spheres (4 parameters: scale, background, radius, polydispersity) and a more complex model of tri-axial ellipsoids with polydispersity in the one axis (axis a):    
 ```
 python stattest.py -d Isim_1.dat -f "fit_sph.txt fit_ellips.txt fit_ellips_poly.txt" -k "4 5 6"
 ```
+Note that multiple inputs should be surrounded by quotation marks. Moreover, the number of free parameters should match the number of fits (these can be the same).   
 
-### Acknowledgements
+## Acknowledgements
 The program was written by Andreas Haahr Larsen    
 
-### Relevant litterature
-to be written
+## Relevant litterature
+#### longest runs statitics:    
+https://maa.org/sites/default/files/pdf/upload_library/22/Polya/07468342.di020742.02p0021g.pdf    
+https://www.nature.com/articles/nmeth.3358    
+
+#### Number of runs statistics:    
+https://en.wikipedia.org/wiki/Wald%E2%80%93Wolfowitz_runs_test    
