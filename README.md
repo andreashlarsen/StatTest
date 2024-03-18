@@ -59,7 +59,7 @@ The option -p (or --path) gives the opportunity to provide a pathf for all fits 
 The program was written by Andreas Haahr Larsen    
 
 ## Relevant litterature
-#### longest runs statitics:    
+#### Longest runs statitics:    
 https://maa.org/sites/default/files/pdf/upload_library/22/Polya/07468342.di020742.02p0021g.pdf    
 https://www.nature.com/articles/nmeth.3358   
 
