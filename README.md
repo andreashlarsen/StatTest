@@ -18,7 +18,7 @@ Download stattest.py and stattest_functions.py to the same folder. The program s
 
 ### Requirements
 * python3
-* standard python packages (can with 'pip' or 'conda'):
+* standard python packages (can with `pip` or `conda`):
   * numpy
   * matplotlib
   * argparse
