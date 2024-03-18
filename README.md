@@ -33,7 +33,7 @@ python stattest.py <INPUT>
 -f: name of fit file. Should contain the fits with the same x-array as the datafile. It is assumed that the fit is in the second column, but this can be adjusted with flag -col. More fit files can be provided, see examples. 
 -k: number of free parameters. For example, for sphere model with radius, scale and background, the number of free parameters (K) is three.    
 
-#### for all options, type
+#### for all options, type:
 ```
 python stattest.py -h
 ```
