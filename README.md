@@ -1,6 +1,5 @@
 # StatTest
-statistical test for SAXS data - applicable to other data formats.    
-StatTest takes a dataset and one or more fit files as input.    
+statistical test for SAXS data (applicable to other data formats). StatTest takes a dataset and one or more fit files as input.    
 As output, you get:
 - the chi-square, the reduced chi-square (should be close to one), and the corresponding p-value.    
 - the number of runs, the reduced number of runs (should be close to one), and the corresponding p-value.
