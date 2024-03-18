@@ -29,9 +29,9 @@ python stattest.py <INPUT>
 ### Input options
 
 #### required options:    
--d: name of data file. Should contain x-data, y-data and error on y-data (sigma).    
--f: name of fit file. Should contain the fits with the same x-array as the datafile. It is assumed that the fit is in the second column, but this can be adjusted with flag -col. More fit files can be provided, see examples. 
--k: number of free parameters. For example, for sphere model with radius, scale and background, the number of free parameters (K) is three.    
+-d (or --data): name of data file. Should contain x-data, y-data and error on y-data (sigma).    
+-f (or --fit): name of fit file. Should contain the fits with the same x-array as the datafile. It is assumed that the fit is in the second column, but this can be adjusted with flag -col. More fit files can be provided, see examples. 
+-k (or --k): number of free parameters. For example, for sphere model with radius, scale and background, the number of free parameters (K) is three.    
 
 #### for all options, type:
 ```
@@ -50,10 +50,10 @@ python stattest.py -d examples/Isim_1.dat -f examples/fit_ellips.txt -k 5
 ### Example, 3 alternative fits: 
 The same data were also fitted with a simpler model of polydispere spheres (4 parameters: scale, background, radius, polydispersity) and a more complex model of tri-axial ellipsoids with polydispersity in the one axis (axis a):    
 ```
-python stattest.py -path examples -d Isim_1.dat -f "fit_sph.txt fit_ellips.txt fit_ellips_poly.txt" -k "4 5 6"
+python stattest.py -p examples -d Isim_1.dat -f "fit_sph.txt fit_ellips.txt fit_ellips_poly.txt" -k "4 5 6"
 ```
 Note that multiple inputs should be surrounded by quotation marks. Moreover, the number of free parameters should match the number of fits (these can be the same).   
-The option -path gives the opportunity to provide a pathf for all fits and data, to avoid typing it multiple times.    
+The option -p (or --path) gives the opportunity to provide a pathf for all fits and data, to avoid typing it multiple times.    
 
 ## Acknowledgements
 The program was written by Andreas Haahr Larsen    
