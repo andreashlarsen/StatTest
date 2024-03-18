@@ -3,8 +3,7 @@ statistical test for SAXS data (applicable to other data formats).
 
 ## Description and motivation
 StatTest is made to make statistical tests in SAXS easily acessible. The script can be included in other software packages, or run post modelling.   
-StatTest takes a dataset and one or more fit files as input.    
-As output, you get:
+StatTest takes a dataset and one or more fit files as input. As output, you get:
 - the chi-square, the reduced chi-square (should be close to one), and the corresponding p-value.    
 - the number of runs, the reduced number of runs (should be close to one), and the corresponding p-value.
 - the longest run, the reduced longest run (should be close to one), and the corresponding p-value.
