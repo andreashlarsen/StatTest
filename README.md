@@ -61,7 +61,10 @@ The program was written by Andreas Haahr Larsen
 ## Relevant litterature
 #### longest runs statitics:    
 https://maa.org/sites/default/files/pdf/upload_library/22/Polya/07468342.di020742.02p0021g.pdf    
-https://www.nature.com/articles/nmeth.3358    
+https://www.nature.com/articles/nmeth.3358   
 
 #### Number of runs statistics:    
 https://en.wikipedia.org/wiki/Wald%E2%80%93Wolfowitz_runs_test    
+
+### Alternative runs statistics (not applied here yet): 
+10.26434/chemrxiv-2021-mdt29-v3 
