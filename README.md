@@ -28,9 +28,10 @@ python stattest.py <INPUT>
 
 ### Input options
 required options:    
--d: name of data. Should contain x-data, y-data and error on y-data (sigma).    
--f: name(s) of fit file(s). Should contain the fits with the same x-array as the datafile. It is assumed that the fit is in the second column, but this can be adjusted with flag -col.    
--k: number of free parameters (for each fit). For example, for sphere model with radius, scale and background, K is three.    
+-d: name of data file. Should contain x-data, y-data and error on y-data (sigma).    
+-f: name of fit file. Should contain the fits with the same x-array as the datafile. It is assumed that the fit is in the second column, but this can be adjusted with flag -col. More fit files can be provided, see examples. 
+-k: number of free parameters. For example, for sphere model with radius, scale and background, the number of free parameters (K) is three.    
+
 to see all options, type
 ```
 python stattest.py -h
