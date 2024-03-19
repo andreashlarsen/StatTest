@@ -30,7 +30,7 @@ If h-tests are opted for, the folder htest should be in the same folder.
 ## Running the program
 
 ```
-python stattest.py -d <DATAFILE> -f <FITFILE(S)> -k <FREE-PARAMETERS> (<OPTIONS>)
+python stattest.py -d <DATAFILE> -f <FITFILE(S)> -k <NUMBER-OF-FREE-PARAMETERS> (<OPTIONS>)
 ```
 
 ### Input options
