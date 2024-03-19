@@ -1,4 +1,4 @@
-# StatTest
+# StatTest version beta0.3
 statistical test for SAXS data (applicable to other data formats). 
 
 ## Description and motivation
@@ -14,7 +14,8 @@ The chi-square assumeed normal-distributed (Gaussian) errors. The runs test assu
 If multiple fits are given, F-test statistics are also given. I.e., a measure for how much better one model is compared to another. Typically used to assess if a more complex model (i.e. with more free parameters) is significantly better than a simpler model.
 
 ## Installation
-Download stattest.py and stattest_functions.py to the same folder. The program should be run from the download folder.
+Download stattest.py and stattest_functions.py to the same folder. The program should be run from the download folder.    
+If h-tests are opted for, the folder htest should be in the same folder.   
 
 ### Requirements
 * python3
@@ -39,6 +40,10 @@ python stattest.py <INPUT>
 -f (or --fit): name of fit file. Should contain the fits with the same x-array as the datafile. It is assumed that the fit is in the second column, but this can be adjusted with flag -col. More fit files can be provided, see examples. 
 -k (or --k): number of free parameters. For example, for sphere model with radius, scale and background, the number of free parameters (K) is three.    
 
+#### other options:    
+-htest (or --htest): show h test statistics 
+-p (or --path): common path for data and fit file(s)
+
 #### for all options, type:
 ```
 python stattest.py -h
@@ -61,6 +66,11 @@ python stattest.py -p examples -d Isim_1.dat -f "fit_sph.txt fit_ellips.txt fit_
 Note that multiple inputs should be surrounded by quotation marks. Moreover, the number of free parameters should match the number of fits (these can be the same).   
 The option -p (or --path) gives the opportunity to provide a pathf for all fits and data, to avoid typing it multiple times.    
 
+## Notes on h-tests
+The script for calculating h statistics (in the folder htests) are adapted from:    
+https://github.com/bio-phys/hplusminus/tree/main    
+with minimal changes.    
+
 ## Acknowledgements
 The program was written by Andreas Haahr Larsen    
 
@@ -72,5 +82,5 @@ https://www.nature.com/articles/nmeth.3358
 #### Number of runs statistics:    
 https://en.wikipedia.org/wiki/Wald%E2%80%93Wolfowitz_runs_test    
 
-### Alternative runs statistics (not applied here yet): 
+### h tests (not applied here yet): 
 10.26434/chemrxiv-2021-mdt29-v3 
