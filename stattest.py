@@ -1,17 +1,24 @@
 #!/usr/bin/python3
 
-#############################
-# stat-test, version:
-version = 'beta0.1'
-#############################
+"""
+StatTest - statitiscal tests for SAXS or SANS data    
+===================================================    
+
+version beta0.3     
+
+see description on the GitHub page: https://github.com/andreashlarsen/StatTest/tree/main       
+
+"""
 
 ## importing python packages
 import numpy as np
 import matplotlib.pyplot as plt
-import argparse 
+import argparse
 import sys
 import os
 from scipy.stats import f
+
+plot=1
 
 ## import helper funcitons
 try:
@@ -24,7 +31,8 @@ except:
 if __name__ == "__main__":
 
     ## input values
-    parser = argparse.ArgumentParser(description="""stat-test - statitiscal tests for SAXS or SANS data""",usage="python stattest.py -d data1.dat -f fit.dat <OPTIONAL ARGUMENTS>" )
+    #parser = argparse.ArgumentParser(description="""stat-test - statitiscal tests for SAXS or SANS data""",usage="python stattest.py -d data1.dat -f fit.dat <OPTIONAL ARGUMENTS>" )
+    parser = argparse.ArgumentParser(description=__doc__,usage="python stattest.py -d data1.dat -f fit.dat <OPTIONAL ARGUMENTS>", formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("-d", "--data", help="Datafile. Include path and file extension. columns: x,y,sigma_y")
     parser.add_argument("-f", "--fit", help="fitfiles (format: fit1.dat OR \"fit1.dat fit.dat\" for multiple fits). Include path and file extension. columns: x,y_fit")
     parser.add_argument("-k", "--k", help="Number of free parameters (format: k1 OR \"k1 k2\" for multiple fits) (can be floats or integeres)")
@@ -35,6 +43,7 @@ if __name__ == "__main__":
     parser.add_argument("-ylabel", "--ylabel", help="label on y-axis", default='I(q)')
     parser.add_argument("-rlabel", "--reslabel", help="label on residual y-axis", default='$\Delta I/\sigma$')
     parser.add_argument("-p", "--path", help="Common path for data and fit file(s)",default='')
+    parser.add_argument("-htest", "--htest", action="store_true", help="Apply h-tests", default=False)
     args = parser.parse_args()
     
     ## convert fitfile string to list and remove empty entries
@@ -106,6 +115,7 @@ if __name__ == "__main__":
         header,footer = get_header_footer(fitfile)
         yfit = np.genfromtxt(fitfile,skip_header=header,skip_footer=footer,usecols=[fit_column],unpack=True)
 
+
         DOF = N-K
         dof_array[kk] = DOF
 
@@ -115,31 +125,30 @@ if __name__ == "__main__":
             Np,Nm = 1,0
         else:
             Np,Nm = 0,1
-
-        RL,RN = 1,0
+        
+        run,h = 1,np.zeros(N)
         for d in DY[1:]:
 
             if d > 0:
                 Np += 1
                 if d_prev > 0:
                     run += 1
-                    if run > RL:
-                        RL = run
                 else:
-                    RN += 1
-                    run = 0
+                    h[run] += 1
+                    run = 1
             else:
                 Nm += 1
                 if d_prev < 0:
                     run += 1
-                    if run > RL:
-                        RL = run
                 else:
-                    RN += 1
-                    run = 0
+                    h[run] += 1
+                    run = 1
             d_prev = d
-        RN += 1
+        h[run] += 1
 
+        RN = np.sum(h)
+        RL = np.max(np.where(h>0))
+        
         RN_exp = 1+2*Np*Nm/DOF
         RNr = RN_exp/RN
         RL_exp = np.log2(DOF)-1
@@ -209,6 +218,16 @@ if __name__ == "__main__":
 
         print('----------------------')
 
+        if args.htest:
+            print('------------------------------ h test and hplusminus test ----------------------------------')
+            from htest.evaluate import *
+            from htest.io_hplus import *
+
+            results = all_statistical_tests(R)
+            print_pvalues_to_screen(results)
+    
+            print('--------------------------------------------------------------------------------------------')
+
         Rmax = np.ceil(np.amax(abs(R)))
         Rmin = -Rmax
 
@@ -251,4 +270,6 @@ if __name__ == "__main__":
     ax[kk+1].set_xlabel('%s' % args.xlabel)
     ax[0].set_ylabel('%s' % args.ylabel)
     ax[0].legend()
-    plt.show()
+
+    if plot:
+        plt.show()

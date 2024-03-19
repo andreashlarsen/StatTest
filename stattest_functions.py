@@ -3,18 +3,15 @@ import scipy.stats as stats
 from scipy.optimize import curve_fit
 import os
 
-def calculate_chi2r_p(reduced_chi_square,dof):
-    """
-    calculate p-value from reduced chi-square value
-    """
-    p_value = stats.chi2.sf(reduced_chi_square*dof, dof)
-    return p_value
-
 def calculate_chi2_p(chi_square,dof):
     """
-    calculate p-value from chi-square value
+    calculate p-value from chi-square value (one-tailed)
     """
-    p_value = stats.chi2.sf(chi_square, dof)
+    if chi_square > dof:
+        p_value = stats.chi2.sf(chi_square,dof)
+    else:
+        p_value = stats.chi2.cdf(chi_square,dof)
+    
     return p_value
 
 def get_header_footer(file):
