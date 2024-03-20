@@ -44,6 +44,7 @@ python stattest.py -d <DATAFILE> -f <FITFILE(S)> -k <NUMBER-OF-FREE-PARAMETERS> 
 -htest (or --htest): show h test statistics     
 -p (or --path): common path for data and fit file(s)       
 -o (or --output_dir): provide name for output directory (default is stattest_output/)    
+-logx (or --logx): plot data and fit on log-log plot (default is log-lin)    
 
 #### for all options, type:
 ```
