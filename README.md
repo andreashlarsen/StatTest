@@ -83,5 +83,5 @@ https://www.nature.com/articles/nmeth.3358
 #### Number of runs statistics:    
 https://en.wikipedia.org/wiki/Wald%E2%80%93Wolfowitz_runs_test    
 
-### h tests: 
+#### h statistics: 
 10.26434/chemrxiv-2021-mdt29-v3 
