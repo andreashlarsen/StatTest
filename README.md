@@ -41,8 +41,9 @@ python stattest.py -d <DATAFILE> -f <FITFILE(S)> -k <NUMBER-OF-FREE-PARAMETERS> 
 -k (or --k): number of free parameters. For example, for sphere model with radius, scale and background, the number of free parameters (K) is three.    
 
 #### other options:    
--htest (or --htest): show h test statistics 
--p (or --path): common path for data and fit file(s)
+-htest (or --htest): show h test statistics     
+-p (or --path): common path for data and fit file(s)       
+-o (or --output_dir): provide name for output directory (default is stattest_output/)    
 
 #### for all options, type:
 ```
