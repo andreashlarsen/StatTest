@@ -1,4 +1,4 @@
-# StatTest version beta0.3
+# StatTest version beta0.4
 statistical test for SAXS data (applicable to other data formats). 
 
 ## Description and motivation
@@ -82,5 +82,5 @@ https://www.nature.com/articles/nmeth.3358
 #### Number of runs statistics:    
 https://en.wikipedia.org/wiki/Wald%E2%80%93Wolfowitz_runs_test    
 
-### h tests (not applied here yet): 
+### h tests: 
 10.26434/chemrxiv-2021-mdt29-v3 
