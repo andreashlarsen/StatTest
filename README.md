@@ -54,19 +54,25 @@ python stattest.py -h
 ## Examples
 example data and fits are provided in the examples folder    
 
-### Example, single fit: 
+### Example, single fit
 Data of tri-axial ellipsoids were simulated with Shape2SAS and exported (Isim_1.dat) and fitted with a tri-axial ellipsoid model (5 parameters: scale, axis a, axis b, axis c, background) in SasView. The fitfile was likewize exported (fit_ellips.txt):    
 ```
-python stattest.py -d examples/Isim_1.dat -f examples/fit_ellips.txt -k 5
+python stattest.py -d examples/Isim_1.dat -f examples/fit_ellips.txt -k 5 -o stattest_output_example1
 ```
 
-### Example, multiple alternative fits: 
+### Example, multiple alternative fits
 The same data were also fitted with a simpler model of polydispere spheres (4 parameters: scale, background, radius, polydispersity) and a more complex model of tri-axial ellipsoids with polydispersity in the one axis (axis a):    
 ```
-python stattest.py -p examples -d Isim_1.dat -f "fit_sph.txt fit_ellips.txt fit_ellips_poly.txt" -k "4 5 6"
+python stattest.py -p examples -d Isim_1.dat -f "fit_sph.txt fit_ellips.txt fit_ellips_poly.txt" -k "4 5 6" -o stattest_output_example2
 ```
 Note that multiple inputs should be surrounded by quotation marks. Moreover, the number of free parameters should match the number of fits (these can be the same).   
 The option -p (or --path) gives the opportunity to provide a pathf for all fits and data, to avoid typing it multiple times.    
+
+### Run examples with bash shell script
+All examples can be run by running the bash shell scritp (examples.sh). In unix this can be done by: 
+```
+bash run_all_examples.sh
+```
 
 ## Notes on h-tests
 The script for calculating h statistics (in the folder htests) are adapted from:    
