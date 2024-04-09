@@ -1,4 +1,4 @@
-# StatTest version beta0.4
+# StatTest version beta0.5
 statistical test for SAXS data (applicable to other data formats). 
 
 ## Description and motivation
@@ -69,8 +69,12 @@ Note that multiple inputs should be surrounded by quotation marks. Moreover, the
 The option -p (or --path) gives the opportunity to provide a pathf for all fits and data, to avoid typing it multiple times.    
 
 ### Run examples with bash shell script
-All examples can be run by running the bash shell scritp (examples.sh). In unix this can be done by: 
+The examples can be run using one of the bash shell scripts. In unix this can be done by: 
 ```
+bash run_example1.sh
+
+bash run_example2.sh
+
 bash run_all_examples.sh
 ```
 
