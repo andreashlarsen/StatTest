@@ -8,14 +8,13 @@ see description on the GitHub page: https://github.com/andreashlarsen/StatTest/t
 
 """
 
-version = 'beta0.4' 
+version = 'beta0.5' 
 
 ## importing python packages
 import numpy as np
 import argparse
 import sys
 import os
-from scipy.stats import f
 
 ## import helper funcitons
 try:
@@ -50,29 +49,9 @@ if __name__ == "__main__":
     if not args.no_plot:
         import matplotlib.pyplot as plt
 
-    ## convert fitfile string to list and remove empty entries
-    fit_in = args.fit
-    try:
-        fit_tmp = fit_in.split(' ')      
-        fit = []
-        for i in range(len(fit_tmp)):
-            if not fit_tmp[i] in ['',' ','  ','   ','    ','     ','      ','       ','        ']:
-                fit.append(fit_tmp[i])
-    except:
-        print("ERROR: could not find fit. Try with option -f fit.dat OR -f \"fit1.dat fit2.dat\" for multiple fits")
-        sys.exit(1)
-
-    ## convert free parameter string to list and remove empty entries
-    k_in = args.k 
-    try:
-        k_tmp = k_in.split(' ')
-        k = []
-        for i in range(len(k_tmp)):
-            if not k_tmp[i] in ['',' ','  ','   ','    ','     ','      ','       ','        ']:
-                k.append(float(k_tmp[i]))
-    except:
-        print("ERROR: could not find k (number of free parameters fitted). Try with option -k k1 OR -k \"k1 k2\" for multiple fits")
-        sys.exit(1)
+    ## convert input 
+    fit = convert_input(args.fit,False)
+    k = convert_input(args.k,True)
     Nk = len(k)
 
     ## import data
@@ -103,6 +82,7 @@ if __name__ == "__main__":
         print(s)
         f_out.write('%s\n' %s)
 
+    ## print welcome message
     printt('========================================================================================')
     printt('StatTest (version %s)' % version)
     printt('See description on the GitHub page: https://github.com/andreashlarsen/StatTest/tree/main')
@@ -147,72 +127,25 @@ if __name__ == "__main__":
         header,footer = get_header_footer(fitfile)
         yfit = np.genfromtxt(fitfile,skip_header=header,skip_footer=footer,usecols=[fit_column],unpack=True)
 
-        DOF = N-K # degrees of freedom
+        # degrees of freedom
+        DOF = N-K 
         dof_array[kk] = DOF
 
-        R = (y-yfit)/dy # normalized residuals
-        R_prev = R[0]
-        if R_prev > 0:
-            Np,Nm = 1,0
-        else:
-            Np,Nm = 0,1
-        
-        run,h = 1,np.zeros(N)
-        for d in R[1:]:
-            if d > 0:
-                Np += 1
-                if R_prev > 0:
-                    run += 1
-                else:
-                    h[run] += 1
-                    run = 1
-            else:
-                Nm += 1
-                if R_prev < 0:
-                    run += 1
-                else:
-                    h[run] += 1
-                    run = 1
-            R_prev = d
-        h[run] += 1
+        ## normalized residuals
+        R = (y-yfit)/dy 
 
-        RN = np.sum(h)
-        RL = np.max(np.where(h>0))
-        
-        RN_exp = 1+2*Np*Nm/DOF
-        RNr = RN_exp/RN
-        RL_exp = np.log2(DOF)-1
-        RLr = RL/RL_exp
+        ## runs tests histogram
+        h = get_runs_histogram(R)
 
-        RL_var = np.pi**2/6*np.log(2)**2+1/12
-        RL_sigma = np.sqrt(RL_var)
-        RL_res = (RL - RL_exp)/RL_sigma
-        RL_p = 1-np.exp(-0.5**(RL - RL_exp+1))
-        if(RL_p < 0.5):
-                RL_p = 2.*RL_p
-        else:
-                RL_p = 2.*(1-RL_p)
-        
-        RN_var = (RN-1)*(RN-2)/(DOF-1)
-        RN_sigma = np.sqrt(RN_var)
-        RN_res = (RN - RN_exp)/RN_sigma
+        ## number of runs
+        RN,RNr,RN_exp,RN_sigma,RN_p = get_RN(h,R,DOF)
 
-        xx = np.linspace(RN_exp-8*RN_sigma,RN_exp+8*RN_sigma,500)
-        d = np.exp(-(RN_exp-xx)**2.0/RN_var/2.0)
-        idx = np.where(xx<=RN)
-        RN_p = np.sum(d[idx])/np.sum(d)
-        if RN_p < 0.5:
-            RN_p = 2.*RN_p
-        else:
-            RN_p = 2.*(1.-RN_p)
+        ## longest run
+        RL,RLr,RL_exp,RL_sigma,RL_p = get_RL(h,DOF)
 
-        chi2 = np.sum(R**2)
-        chi2r = chi2/DOF
-        chi2r_array[kk] = chi2r
-        chi2_var = 2*DOF
-        chi2_sigma = np.sqrt(chi2_var)
-
-        chi2_p = 2*calculate_chi2_p(chi2,DOF) # two-tailed: factor 2
+        ## chi2
+        chi2,chi2r,chi2_sigma,chi2_p = get_chi2(R,DOF)
+        chi2r_array[kk] = chi2r # used for model comparison with the F test
 
         printt('--------------------------------------------')
         printt('    ')
@@ -226,9 +159,6 @@ if __name__ == "__main__":
         printt('    Expected chi2: %1.0f +- %1.0f' % (DOF,chi2_sigma))
         printt('    Reduced chi2: %1.1f' % chi2r)
         printt('    p-value chi2: %1.4f' % chi2_p)
-        printt('    ')
-        printt('    N+: %d' % Np)
-        printt('    N-: %d' % Nm)
         printt('    ')
         printt('    Longest run: %d' % RL)
         printt('    Expected Longest run: %1.1f +- %1.1f' % (RL_exp,RL_sigma))
@@ -275,25 +205,23 @@ if __name__ == "__main__":
                 plt.plot(x,x2*yfit,color=color,label=r'fit %d: %s, $\chi^2_r$: %1.1f, $R^L_r$: %1.1f, $R^N_r$: %1.1f' % (kk+1,fit[kk],chi2r,RLr,RNr),zorder=kk+1)
                 plt.figure(1)
 
-    printt('------------------------------ F tests for model comparison ----------------------------------')
-    printt('    ')
-
     kk_array = np.linspace(1,3,3)
+
     if Nk > 1:
-         idx = np.argsort(chi2r_array)
-         chi2r_sort = chi2r_array[idx]
-         dof_sort = dof_array[idx]
-         kk_sort = kk_array[idx]
-        
-         for kkk in range(Nk-1):
+        printt('------------------------------ F tests for model comparison ----------------------------------')
+        printt('    ')
+        idx = np.argsort(chi2r_array)
+        chi2r_sort = chi2r_array[idx]
+        dof_sort = dof_array[idx]
+        kk_sort = kk_array[idx]
+
+        for kkk in range(Nk-1):
             number1 = -1-kkk
             for kkkk in range(1,Nk-kkk):
-                number2 = number1-kkkk
-                F0 = chi2r_sort[number1]/chi2r_sort[number2]
-                p = 1-f.cdf(F0,dof_sort[number1],dof_sort[number2]) #find p-value of F test statistic (one sided)
-                p *= 2 # two sided p-value 
-                printt('    compare fit %d and fit %d, F-test p-value %1.4f:' % (kk_sort[number1],kk_sort[number2],p))
-                if p < args.alpha:
+                number2 = number1-kkkk              
+                F0,F_p = get_F(chi2r_sort[number1],chi2r_sort[number2],dof_sort[number1],dof_sort[number2])
+                printt('    compare fit %d and fit %d, F-test p-value %1.4f:' % (kk_sort[number1],kk_sort[number2],F_p))
+                if F_p < args.alpha:
                     printt('        fit %d is significantly better than fit %d (p-value > significance level: %1.4f)' % (kk_sort[number2],kk_sort[number1],args.alpha))
                 else:
                     printt('        fit %d is NOT significantly better than fit %d (p-value > significance level: %1.4f)' % (kk_sort[number2],kk_sort[number1],args.alpha))
