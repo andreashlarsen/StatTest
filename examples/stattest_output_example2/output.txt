@@ -1,0 +1,97 @@
+========================================================================================
+StatTest (version beta0.4)
+See description on the GitHub page: https://github.com/andreashlarsen/StatTest/tree/main
+========================================================================================
+data file: examples/Isim_1.dat
+Number of points: 400
+--------------------------------------------
+    
+fit 1
+    
+    fitfile: examples/fit_sph.txt
+    Number of free parameters: 4
+    Degrees of freedom: 396
+    
+    chi2: 789
+    Expected chi2: 396 +- 28
+    Reduced chi2: 2.0
+    p-value chi2: 0.0000
+    
+    N+: 190
+    N-: 210
+    
+    Longest run: 33
+    Expected Longest run: 7.6 +- 0.9
+    Reduced Longest run: 4.3
+    p-value Longest run: 0.0000
+    
+    Number of runs: 142
+    Expected Number of runs: 203 +- 7
+    Reduced Number of runs: 1.4
+    p-value Number of run: 0.0000
+    
+--------------------------------------------
+    
+fit 2
+    
+    fitfile: examples/fit_ellips.txt
+    Number of free parameters: 5
+    Degrees of freedom: 395
+    
+    chi2: 469
+    Expected chi2: 395 +- 28
+    Reduced chi2: 1.2
+    p-value chi2: 0.0118
+    
+    N+: 197
+    N-: 203
+    
+    Longest run: 11
+    Expected Longest run: 7.6 +- 0.9
+    Reduced Longest run: 1.4
+    p-value Longest run: 0.0941
+    
+    Number of runs: 192
+    Expected Number of runs: 203 +- 10
+    Reduced Number of runs: 1.1
+    p-value Number of run: 0.2355
+    
+--------------------------------------------
+    
+fit 3
+    
+    fitfile: examples/fit_ellips_poly.txt
+    Number of free parameters: 6
+    Degrees of freedom: 394
+    
+    chi2: 446
+    Expected chi2: 394 +- 28
+    Reduced chi2: 1.1
+    p-value chi2: 0.0722
+    
+    N+: 202
+    N-: 198
+    
+    Longest run: 9
+    Expected Longest run: 7.6 +- 0.9
+    Reduced Longest run: 1.2
+    p-value Longest run: 0.3500
+    
+    Number of runs: 198
+    Expected Number of runs: 204 +- 10
+    Reduced Number of runs: 1.0
+    p-value Number of run: 0.5424
+    
+------------------------------ F tests for model comparison ----------------------------------
+    
+    compare fit 1 and fit 2, F-test p-value 0.0000:
+        fit 2 is significantly better than fit 1 (p-value > significance level: 0.0100)
+    
+    compare fit 1 and fit 3, F-test p-value 0.0000:
+        fit 3 is significantly better than fit 1 (p-value > significance level: 0.0100)
+    
+    compare fit 2 and fit 3, F-test p-value 0.6297:
+        fit 3 is NOT significantly better than fit 2 (p-value > significance level: 0.0100)
+    
+Output send to output dir: examples/stattest_output_example2
+    

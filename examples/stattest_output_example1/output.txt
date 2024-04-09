@@ -1,0 +1,36 @@
+========================================================================================
+StatTest (version beta0.4)
+See description on the GitHub page: https://github.com/andreashlarsen/StatTest/tree/main
+========================================================================================
+data file: examples/Isim_1.dat
+Number of points: 400
+--------------------------------------------
+    
+fit 1
+    
+    fitfile: examples/fit_ellips.txt
+    Number of free parameters: 5
+    Degrees of freedom: 395
+    
+    chi2: 469
+    Expected chi2: 395 +- 28
+    Reduced chi2: 1.2
+    p-value chi2: 0.0118
+    
+    N+: 197
+    N-: 203
+    
+    Longest run: 11
+    Expected Longest run: 7.6 +- 0.9
+    Reduced Longest run: 1.4
+    p-value Longest run: 0.0941
+    
+    Number of runs: 192
+    Expected Number of runs: 203 +- 10
+    Reduced Number of runs: 1.1
+    p-value Number of run: 0.2355
+    
+------------------------------ F tests for model comparison ----------------------------------
+    
+Output send to output dir: examples/stattest_output_example1
+    
