@@ -72,9 +72,11 @@ The option -p (or --path) gives the opportunity to provide a pathf for all fits 
 The examples can be run using one of the bash shell scripts. In unix this can be done by: 
 ```
 bash run_example1.sh
-
+```
+```
 bash run_example2.sh
-
+```
+```
 bash run_all_examples.sh
 ```
 
