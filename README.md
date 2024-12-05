@@ -99,11 +99,3 @@ https://en.wikipedia.org/wiki/Wald%E2%80%93Wolfowitz_runs_test
 #### h statistics: 
 https://doi.org/10.26434/chemrxiv-2021-mdt29-v3 
 
-#### test table
-
----------|-----------|
-car      | red       |
----------|-----------|
-bike     | blue      |
-airplane | yellow    |
-----------------------
